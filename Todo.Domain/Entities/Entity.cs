@@ -9,6 +9,6 @@ public abstract class Entity : IComparable<Entity>
 
     public Guid Id { get; private set; }
 
-    public int CompareTo(Entity? other) => Id.CompareTo(other.Id);
-    
+    public int CompareTo(Entity other) => Id.CompareTo(other.Id);
+
 }
