@@ -20,6 +20,7 @@ public class TodoHandler :
 
     public ICommandResult Handle(CreateTodoCommand command)
     {
+        // Fail fast validation
         command.Validate();
         if (command.Invalid)
             return new GenericCommandResult(false, "Ops, parece que sua tarefa está errada!", command.Notifications);
