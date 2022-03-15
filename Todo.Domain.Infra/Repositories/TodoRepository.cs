@@ -2,8 +2,11 @@
 using Todo.Domain.Entities;
 using Todo.Domain.Infra.Contexts;
 using Todo.Domain.Queries;
+using Todo.Domain.Repositories;
 
-public class TodoRepository : Todo.Domain.Repositories.ITodoRepository
+namespace Todo.Domain.Infra.Repositories;
+
+public class TodoRepository : ITodoRepository
 {
     private readonly DataContext _context;
 
@@ -17,6 +20,13 @@ public class TodoRepository : Todo.Domain.Repositories.ITodoRepository
         _context.Todos.Add(todo);
         _context.SaveChanges();
     }
+
+    public void Update(TodoItem todo)
+    {
+        _context.Entry(todo).State = EntityState.Modified;
+        _context.SaveChanges();
+    }
+
 
     public IEnumerable<TodoItem> GetAll(string user)
     {
@@ -57,9 +67,4 @@ public class TodoRepository : Todo.Domain.Repositories.ITodoRepository
             .OrderBy(x => x.Date);
     }
 
-    public void Update(TodoItem todo)
-    {
-        _context.Entry(todo).State = EntityState.Modified;
-        _context.SaveChanges();
-    }
 }
